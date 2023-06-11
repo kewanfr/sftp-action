@@ -102,6 +102,10 @@ async function processPath(local, remote) {
   for (const file of files) {
     const localFile = path.join(local, file);
     const remoteFile = path.join(remote, file);
+    // Ignore Patern
+    if (ignorePatterns.some((pattern) => minimatch(file, pattern))) {
+        continue;
+    }
     if (fs.lstatSync(localFile).isDirectory()) {
       await sftp.mkdir(remoteFile, true);
     } else {
