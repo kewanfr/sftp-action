@@ -41,7 +41,7 @@ sftp
     passphrase: passphrase,
   })
   .then(async () => {
-    console.log("Connection established.");
+    console.log("Connection établie.");
     console.log("Current working directory: " + (await sftp.cwd()));
     await processPath(localPath, remotePath); //TODO: Instead of localPath, remotePath use key/value to uplaod multiple files at once.
 
@@ -134,8 +134,9 @@ async function getIgnorePatterns(local) {
   if (!fs.existsSync(ignoreFile)) {
     return [];
   }
-  const ignoreContent = await fs.promises.readFile(ignoreFile, "utf8");
-  const ignorePatterns = ignoreContent.split("\n").filter((pattern) => pattern.trim() !== "");
+  const ignoreContent = await fs.readFileSync(ignoreFile, "utf8");
+  const ignorePatterns = ignoreContent.split("\n");
+//   const ignorePatterns = ignoreContent.split("\n").filter((pattern) => pattern.trim() !== "");
 
   // Ignore files and directories in .git/ and .github/
   ignorePatterns.push(".git/*", ".github/*");
