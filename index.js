@@ -95,6 +95,8 @@ async function processPath(local, remote) {
   const ignorePatterns = await getIgnorePatterns(local);
   const options = { ignore: ignorePatterns };
 
+  console.log("Ignore patterns: " + ignorePatterns);
+
   // Get list of files to upload
   const files = await glob.promise("**/*", options);
 
